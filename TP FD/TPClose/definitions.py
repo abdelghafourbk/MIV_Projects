@@ -1,31 +1,28 @@
-
-
 def fermeture(A, x, n, m):
-    ch = A.loc[0][x]  # get the character
+    ch = A[0][x]  # get the character
 
-    v = len(A.axes[1]) * [1]  # v = [1,1,1,1,1]
+    v = len(A[1]) * [1]  # v = [1,1,1,1,1]
 
-    for i in range(n):
-        # find the characters that have ONES in the same place as the current character
+    for i in range(n):  # find the characters that have ONES in the same place as the current character
         # ( closure of B is BA for ex)
         for j in range(m):
             if i != 0:  # pour éviter le character
                 if x != j:
-                    if A.iloc[i][x] == 1:
-                        if A.iloc[i][j] != A.iloc[i][x]:
+                    if A[i][x] == 1:
+                        if A[i][j] != A[i][x]:
                             v[j] = 0
     for i in range(len(v)):
         if x != i:
             if v[i] == 1:
-                ch = ch + A.iloc[0][i]  # concatenation
+                ch = ch + A[0][i]  # concatenation
     print("ferm:", ch)
     return ch
 
 
 def support(ch, A, m):  # calculé le nombre d'occurences de la chaine ch
-    v = len(A.axes[1]) * [1]
+    v = len(A[1]) * [1]
     for i in range(m):
-        if A.iloc[0][i] not in ch:
+        if A[0][i] not in ch:
             v[i] = 0
     tmp = []
     for i in range(len(v)):
@@ -33,10 +30,10 @@ def support(ch, A, m):  # calculé le nombre d'occurences de la chaine ch
             tmp.append(i)
     cpt = 0
     for i in range(1, len(A)):
-        if A.iloc[i][tmp[0]] == 1:
+        if A[i][tmp[0]] == 1:
             bol = True
             for j in range(1, len(tmp)):
-                if A.iloc[i][tmp[0]] != A.iloc[i][tmp[j]]:
+                if A[i][tmp[0]] != A[i][tmp[j]]:
                     bol = False
             if bol:
                 cpt = cpt + 1
@@ -45,10 +42,10 @@ def support(ch, A, m):  # calculé le nombre d'occurences de la chaine ch
 
 # trouver la fermuture de les 2-itemset
 def fermeture2(ch, A):
-    m = len(A.axes[1])
-    v = len(A.axes[1]) * [1]
+    m = len(A[1])
+    v = len(A[1]) * [1]
     for i in range(m):
-        if A.iloc[0][i] not in ch:
+        if A[0][i] not in ch:
             v[i] = 0
     tmp = []
     tmp1 = []
@@ -60,20 +57,20 @@ def fermeture2(ch, A):
             tmp1.append(i)
     res = []
     for i in range(1, len(A)):
-        if A.iloc[i][tmp[0]] == 1:
+        if A[i][tmp[0]] == 1:
             bol = True
             for j in range(1, len(tmp)):
-                if A.iloc[i][tmp[0]] != A.iloc[i][tmp[j]]:
+                if A[i][tmp[0]] != A[i][tmp[j]]:
                     bol = False
             if bol:
                 res.append(i)
     for i in range(len(tmp1)):
         bol = True
         for j in range(len(res)):
-            if A.iloc[res[j]][tmp1[i]] != 1:
+            if A[res[j]][tmp1[i]] != 1:
                 bol = False
         if bol:
-            ch = ch + A.iloc[0][tmp1[i]]
+            ch = ch + A[0][tmp1[i]]
     return ch
 
 
@@ -139,28 +136,29 @@ def associations(minsupport, G):
     return M
 
 
-def close(minsupport, data):
-    n = len(data.axes[0])
-    m = len(data.axes[1])
+def close(minsupport,mat):
+
+    n = len(mat)
+    m = len(mat[1])
 
     v = m * [0]
     minsupport = minsupport / (n - 1)  # minsupport/5
 
-    # Cette boucle permet de calculer l'apparition de 1 pour chaque item
+    # Cette boucle permet de calculer l'apparition de 1 pour chaque item ##
     # v va contenir les nombres d'apparitions de chaque charactere
     for i in range(n):
         for j in range(m):
             if i != 0:
-                if data.iloc[i][j] == 1:
+                if mat[i][j] == 1:
                     v[j] = v[j] + 1
 
     Gen1 = []
 
     # La recherche des fermetures pour chaque item ##
     for i in range(m):
-        ch = fermeture(data, i, n, m)
+        ch = fermeture(mat, i, n, m)
         # support(x) = freq(x)/D
-        Gen1.append([data.iloc[0][i], v[i] / (n - 1), ch])
+        Gen1.append([mat[0][i], v[i] / (n - 1), ch])
 
     print("GEN-1")
     print(Gen1)
@@ -185,10 +183,10 @@ def close(minsupport, data):
                             if (Gen1[i][0] not in Gen1[j][2]) and (
                                     Gen1[j][0] not in Gen1[i][2]):  # pour eviter les redondances
 
-                                y = support(Gen1[i][0] + Gen1[j][0], data, m)
+                                y = support(Gen1[i][0] + Gen1[j][0], mat, m)
 
                                 ch1 = fermeture2(Gen1[i][0] + Gen1[j][0],
-                                                 data)  # trouver la fermuture de la 2-itemset trouvé
+                                                 mat)  # trouver la fermuture de la 2-itemset trouvé
 
                                 Gen2.append([Gen1[i][0] + Gen1[j][0], y / (n - 1), ch1])
 
@@ -218,8 +216,8 @@ def close(minsupport, data):
                                         if (inclus(Gen2[i][0], ferm(Gen2[j][0], Gen2)) == 1) and (
                                                 inclus(Gen2[j][0], ferm(Gen2[i][0], Gen2)) == 1):
                                             temp = [concat(Gen2[i][0], Gen2[j][0]),
-                                                    support(concat(Gen2[i][0], Gen2[j][0]), data, m) / (n - 1),
-                                                    fermeture2(concat(Gen2[i][0], Gen2[j][0]), data)]
+                                                    support(concat(Gen2[i][0], Gen2[j][0]), mat, m) / (n - 1),
+                                                    fermeture2(concat(Gen2[i][0], Gen2[j][0]), mat)]
                                             Gen3.append(temp)
                 verif = test(Gen3, minsupport)
 
