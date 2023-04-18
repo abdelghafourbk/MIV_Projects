@@ -1,0 +1,13 @@
+##Algorithme Apriori
+
+Entrée: K : Contexte d’Extraction, Minsup
+Sortie: Ensemble des itemsets fréquents
+1: Initialiser l’ensemble de candidats de taille 1
+2: tant que ensemble de candidats est non vide faire
+    1) Calculer le support des candidats
+    2) Élaguer l’ensemble de candidats par rapport à minsup
+
+    1) Construire l’ensemble des candidats pour l’itération suivante
+
+5: fin tant que
+6: retourner Ensemble des itemsets fermés fréquents
