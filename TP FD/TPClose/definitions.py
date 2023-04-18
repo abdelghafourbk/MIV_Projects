@@ -141,7 +141,7 @@ def close(minsupport, mat):
     m = len(mat[1])
 
     v = m * [0]
-    minsupport = minsupport / (n - 1)  # minsupport/5
+    minsupport = minsupport / (n - 1)
 
     # Cette boucle permet de calculer l'apparition de 1 pour chaque item ##
     # v va contenir les nombres d'apparitions de chaque charactere
