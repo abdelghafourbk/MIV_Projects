@@ -74,7 +74,7 @@ def fermeture2(ch, A):
     return ch
 
 
-def test(A, minsupport):
+def is_frequent(A, minsupport):
     bol = True
 
     for i in range(len(A)):
@@ -168,10 +168,10 @@ def close(minsupport,mat):
     print(associations(minsupport, Gen1))  # generator -> closed itemsets - generator
     print("minsupport:", minsupport)
 
-    if not test(Gen1, minsupport):
+    if not is_frequent(Gen1, minsupport):
         print("done!")
     else:
-        verif = test(Gen1, minsupport)
+        verif = is_frequent(Gen1, minsupport)
         Gen2 = []
         tmp1 = []
         for i in range(len(Gen1)):
@@ -190,7 +190,7 @@ def close(minsupport,mat):
 
                                 Gen2.append([Gen1[i][0] + Gen1[j][0], y / (n - 1), ch1])
 
-        verif = test(Gen2, minsupport)
+        verif = is_frequent(Gen2, minsupport)
         if not verif:
             print("done!")
             print(Gen2)
@@ -219,7 +219,7 @@ def close(minsupport,mat):
                                                     support(concat(Gen2[i][0], Gen2[j][0]), mat, m) / (n - 1),
                                                     fermeture2(concat(Gen2[i][0], Gen2[j][0]), mat)]
                                             Gen3.append(temp)
-                verif = test(Gen3, minsupport)
+                verif = is_frequent(Gen3, minsupport)
 
                 if verif:
                     print(" Resultat final dans la" + str(compteur) + "ème itération")
