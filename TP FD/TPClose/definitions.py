@@ -15,7 +15,7 @@ def fermeture(A, x, n, m):
         if x != i:
             if v[i] == 1:
                 ch = ch + A[0][i]  # concatenation
-    print("ferm:", ch)
+    print("Fermeture:", ch)
     return ch
 
 
@@ -136,8 +136,7 @@ def associations(minsupport, G):
     return M
 
 
-def close(minsupport,mat):
-
+def close(minsupport, mat):
     n = len(mat)
     m = len(mat[1])
 
@@ -169,7 +168,7 @@ def close(minsupport,mat):
     print("minsupport:", minsupport)
 
     if not is_frequent(Gen1, minsupport):
-        print("done!")
+        print("done!")  # on s'arrete si le dernier itemset n'est pas fréquent
     else:
         verif = is_frequent(Gen1, minsupport)
         Gen2 = []
@@ -193,9 +192,9 @@ def close(minsupport,mat):
         verif = is_frequent(Gen2, minsupport)
         if not verif:
             print("done!")
-            print(Gen2)
+            """print(Gen2)
             print("associations :")
-            print(associations(minsupport, Gen2))
+            print(associations(minsupport, Gen2))"""
         else:
             print("GEN2:\n")
             print(Gen2)

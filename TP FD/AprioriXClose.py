@@ -63,7 +63,46 @@ for i in range(10):
     df.loc[len(df.index)] = res
     res = [random.randrange(0, 2, 1) for p in range(5)]
     df.loc[len(df.index)] = res
-
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
+    res = [random.randrange(0, 2, 1) for p in range(5)]
+    df.loc[len(df.index)] = res
     # pretraitement taena
     te = TransactionEncoder()
     te_ary = te.fit(df).transform(df)
@@ -90,4 +129,3 @@ plt.legend()
 plt.ylabel("Time (s)")
 plt.xlabel("Data size")
 plt.show()
-plt.savefig('result.png')
