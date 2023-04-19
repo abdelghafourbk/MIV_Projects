@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as font
 from PIL import Image, ImageTk
 import definitions
 
@@ -19,33 +20,39 @@ def main():
 
 
 master = tk.Tk()
-master.title("My GUI")
+master.geometry('600x500')
+master.title("Data Mining")
+master.configure(bg="#15307d")
 
-# Load the background image
-image = Image.open("data-miningBG.webp")
+#font
+myFont =("Comic Sans MS",12, "bold")
+
+image = Image.open("TPClose/datamining-BG.png")
 photo = ImageTk.PhotoImage(image)
 
-# Create a frame with the same dimensions as the image
-frame = tk.Frame(master, width=photo.width(), height=photo.height())
-frame.pack()
-
 # Set the background image of the frame
-label = tk.Label(frame, image=photo)
+label = tk.Label(master, image=photo)
 label.place(x=0, y=0, relwidth=1, relheight=1)
+label.pack(pady=20)
 label.image = photo
 
-# Components:
-# Create a canvas and draw a rectangle on it
-canvas = tk.Canvas(frame, width=200, height=200, bg='white')
-canvas.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
+#Components
+label_text = tk.Label(master, text="Enter the minSup:", bg='#15307d', fg='white')
+label_text.pack(pady=8)
+label_text.configure(font=myFont)
 
-label_text = tk.Label(frame, text="Enter the minSup:")
-label_text.pack()
+textarea = tk.Entry(master)
+textarea.pack(pady=2)
 
-textarea = tk.Entry(frame)
-textarea.pack()
+miningButton = tk.Button(master, text="START MINING!", bg='#eeb448', fg='white', command=main)
+miningButton.pack(pady=10)
+miningButton.configure(font=myFont)
 
-button = tk.Button(frame, text="START MINING!", command=main)
-button.place(relx=0.5, rely=0.4, anchor=tk.CENTER)
+resultLabel = tk.Label(master, text="Results:", bg='#15307d', fg='white')
+resultLabel.pack(pady=4)
+resultLabel.configure(font=myFont)
+
+resultOutput = tk.Text(master, height=10, width=50)
+resultOutput.pack()
 
 master.mainloop()

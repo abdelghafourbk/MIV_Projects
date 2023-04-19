@@ -22,7 +22,7 @@ close_time = []
 data_size = []
 
 for i in range(10):
-    # add data
+    # add data 
     res = [random.randrange(0, 2, 1) for p in range(5)]
     df.loc[len(df.index)] = res
     res = [random.randrange(0, 2, 1) for p in range(5)]
