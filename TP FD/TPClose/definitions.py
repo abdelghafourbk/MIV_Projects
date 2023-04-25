@@ -1,6 +1,5 @@
 def fermeture(A, x, n, m):
     ch = A[0][x]  # get the character
-
     v = len(A[1]) * [1]  # v = [1,1,1,1,1]
 
     for i in range(n):  # find the characters that have ONES in the same place as the current character
@@ -150,12 +149,21 @@ def close(minsupport, mat):
             if i != 0:
                 if mat[i][j] == 1:
                     v[j] = v[j] + 1
-
+    # to avoid referenced before assignement later on
     Gen1 = []
-
+    isFrequent1 = False
+    assocs1 = []
+    Gen2 = []
+    isFrequent2 = False
+    assocs2 = []
+    Gen3 = []
+    isFrequent3 = False
+    assocs3 = []
+    fermetureArray = []
     # La recherche des fermetures pour chaque item ##
     for i in range(m):
         ch = fermeture(mat, i, n, m)
+        fermetureArray.append(ch)
         # support(x) = freq(x)/D
         Gen1.append([mat[0][i], v[i] / (n - 1), ch])
 
@@ -164,15 +172,15 @@ def close(minsupport, mat):
     print("Les associations de  GEN-1 :")
 
     # extracting association rules
+    assocs1 = associations(minsupport, Gen1)
     print(associations(minsupport, Gen1))  # generator -> closed itemsets - generator
     print("minsupport:", minsupport)
 
-    if not is_frequent(Gen1, minsupport):
+    isFrequent1 = is_frequent(Gen1, minsupport)
+    if not isFrequent1:
         print("done!")  # on s'arrete si le dernier itemset n'est pas fréquent
     else:
-        verif = is_frequent(Gen1, minsupport)
         Gen2 = []
-        tmp1 = []
         for i in range(len(Gen1)):
             if Gen1[i][1] >= minsupport:
                 for j in range(i, len(Gen1)):
@@ -189,9 +197,11 @@ def close(minsupport, mat):
 
                                 Gen2.append([Gen1[i][0] + Gen1[j][0], y / (n - 1), ch1])
 
-        verif = is_frequent(Gen2, minsupport)
-        if not verif:
-            print("done!")
+        isFrequent2 = is_frequent(Gen2, minsupport)
+        assocs2 = associations(minsupport, Gen2)
+        
+        if not isFrequent2:
+            print("done!2")
             """print(Gen2)
             print("associations :")
             print(associations(minsupport, Gen2))"""
@@ -204,7 +214,6 @@ def close(minsupport, mat):
             # k = 3, il faut 2 éléments de taille k-1 qui ont k-2 prefixes commun et qui ne sont pas inclus dans
             # leurs fermetures
             while True:
-                Gen3 = []
                 temp = []
                 for i in range(len(Gen2)):
                     if Gen2[i][1] >= minsupport:
@@ -218,9 +227,9 @@ def close(minsupport, mat):
                                                     support(concat(Gen2[i][0], Gen2[j][0]), mat, m) / (n - 1),
                                                     fermeture2(concat(Gen2[i][0], Gen2[j][0]), mat)]
                                             Gen3.append(temp)
-                verif = is_frequent(Gen3, minsupport)
-
-                if verif:
+                isFrequent3 = is_frequent(Gen3, minsupport)
+                assocs3 = associations(minsupport, Gen3)
+                if isFrequent3:
                     print(" Resultat final dans la" + str(compteur) + "ème itération")
                     print(Gen3)
                     print("Les associations :")
@@ -230,3 +239,4 @@ def close(minsupport, mat):
                     print(Gen3)
                     compteur = compteur + 1
                     Gen2 = Gen3
+    return fermetureArray, Gen1, assocs1, minsupport, isFrequent1, Gen2, isFrequent2, assocs2, Gen3, isFrequent3, assocs3
