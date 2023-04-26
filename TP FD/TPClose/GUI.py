@@ -1,8 +1,9 @@
 import tkinter as tk
-import tkinter.font as font
 from PIL import Image, ImageTk
+import customtkinter #you need to install it sir using the command: pip install customtkinter==0.3
 import definitions
 
+#Data Matrix
 data = [['A', 'B', 'C', 'D', 'E'],
         [1, 0, 0, 1, 1],
         [0, 0, 1, 1, 1],
@@ -10,9 +11,6 @@ data = [['A', 'B', 'C', 'D', 'E'],
         [0, 1, 0, 1, 0],
         [1, 1, 1, 0, 0],
         [0, 0, 0, 1, 1]]
-
-
-# Create the main window and start the event loop
 
 def main():
     min_support = textarea.get()
@@ -59,16 +57,16 @@ def main():
 
 master = tk.Tk()
 master.geometry('600x500')
-master.title("Data Mining")
+master.title("Data Mining -Close Algorithm-")
 master.configure(bg="#15307d")
 
-#font
+#Font
 myFont =("Halvetica",12, "bold")
 
 image = Image.open("TPClose/datamining-BG.png")
 photo = ImageTk.PhotoImage(image)
 
-# Set the background image of the frame
+#Set the background image of the frame
 label = tk.Label(master, image=photo)
 label.place(x=0, y=0, relwidth=1, relheight=1)
 label.pack(pady=20)
@@ -84,6 +82,8 @@ textarea = tk.Entry(master)
 textarea.pack(pady=2, ipady=3)
 
 #Button to start the execution
+# miningButton = customtkinter.CTkButton(master, text="START MINING!", bg_color="eeb448", fg_color="white" ,width=20, height=10, corner_radius=24, command=main)
+
 miningButton = tk.Button(master, text="START MINING!", bg='#eeb448', fg='white', command=main)
 miningButton.pack(pady=10)
 miningButton.configure(font=myFont)
