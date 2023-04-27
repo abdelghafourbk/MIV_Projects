@@ -1,4 +1,4 @@
-def fermeture(A, x, n, m):
+def closure(A, x, n, m):
     ch = A[0][x]
     v = len(A[1]) * [1]
 
@@ -38,8 +38,8 @@ def support(ch, A, m):  #Calculate the occ number in ch
     return cpt
 
 
-#find the fermuture of the 2nd itemset
-def fermeture2(ch, A):
+#find the closure of the 2nd itemset
+def closure2(ch, A):
     m = len(A[1])
     v = len(A[1]) * [1]
     for i in range(m):
@@ -153,9 +153,9 @@ def close(minsupport, mat):
     isFrequent3 = False
     assocs3 = []
     fermetureArray = []
-    # La recherche des fermetures pour chaque item 
+    # search closures for every item
     for i in range(m):
-        ch = fermeture(mat, i, n, m)
+        ch = closure(mat, i, n, m)
         fermetureArray.append(ch)
         # support(x) = freq(x)/D
         Gen1.append([mat[0][i], v[i] / (n - 1), ch])
@@ -185,7 +185,7 @@ def close(minsupport, mat):
 
                                 y = support(Gen1[i][0] + Gen1[j][0], mat, m)
 
-                                ch1 = fermeture2(Gen1[i][0] + Gen1[j][0],
+                                ch1 = closure2(Gen1[i][0] + Gen1[j][0],
                                                  mat)  # search the fermeture of the 2nd itmeset found
 
                                 Gen2.append([Gen1[i][0] + Gen1[j][0], y / (n - 1), ch1])
@@ -214,7 +214,7 @@ def close(minsupport, mat):
                                                 inclus(Gen2[j][0], ferm(Gen2[i][0], Gen2)) == 1):
                                             temp = [concatenate(Gen2[i][0], Gen2[j][0]),
                                                     support(concatenate(Gen2[i][0], Gen2[j][0]), mat, m) / (n - 1),
-                                                    fermeture2(concatenate(Gen2[i][0], Gen2[j][0]), mat)]
+                                                    closure2(concatenate(Gen2[i][0], Gen2[j][0]), mat)]
                                             Gen3.append(temp)
                 isFrequent3 = is_frequent(Gen3, minsupport)
                 assocs3 = associations(minsupport, Gen3)

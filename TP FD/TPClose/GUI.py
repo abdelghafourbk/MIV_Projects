@@ -11,10 +11,17 @@ data = [['A', 'B', 'C', 'D', 'E'],
         [0, 1, 0, 1, 0],
         [1, 1, 1, 0, 0],
         [0, 0, 0, 1, 1]]
+data1 = [['A', 'B', 'C', 'D', 'E'],
+        [1, 1, 0, 1, 1],
+        [1, 0, 1, 1, 1],
+        [1, 1, 0, 0, 1],
+        [0, 1, 1, 1, 0],
+        [1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1]]
 
 def main():
     min_support = textarea.get()
-    fermutureArray, Gen1, assocs, minsupport, isFrequent, Gen2, isFrequent2, assocs2, Gen3, isFrequent3, assocs3 = definitions.close(int(min_support), data)
+    fermutureArray, Gen1, assocs, minsupport, isFrequent, Gen2, isFrequent2, assocs2, Gen3, isFrequent3, assocs3 = definitions.close(int(min_support), data1)
     resultOutput.delete("1.0", tk.END)
     #Displaying fermutures in the results output
     for i in range(len(fermutureArray)):
@@ -30,7 +37,7 @@ def main():
     if not isFrequent:
         resultOutput.insert(tk.END, "\nDone after GEN-1!!")
     else:
-        #Displaying thhe associations of GEN-2
+        #Displaying thhe associations of GEN-2  
         if Gen2:
             #Displaying the Gen2
             resultOutput.insert(tk.END, "\nGen-2:\n")
