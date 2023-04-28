@@ -1,0 +1,22 @@
+1) 
+3andek Kmeans normal, le  problème on doit choisir le 'K' 
+2) 
+3andek un truc que tu fais avant k-means c'est un truc dynamique yekharadj les clusters 
+comment ça marche ? 
+->  tu prends un individu aléatoire et tu ajoutes les autres individues a son groupe si ça respect une certaine distance (donc tu calcules la distance bin les individues et hadek l'indivue), 
+sinon tu crée un autre groupe avec l'individue non ajouté, ainsi de suite
+le problème ?  -> les clusters sont formés koul khatra kifach, psk ça dépend de l'autre d'arrivé des individues
+ (le choix du premier est aleatoire ensuite quand tu calcules la distance et tu agrandis le groupe same) 
+
+3) Solution : -> Dynamique clustering hada then Kmeans
+--------------------------------------------------------
+
+aploti random points
+
+Choose a random point as the first centroid.
+
+dir un seuil w ahsseb la distance bin each point w le centroid taek, ila kbira maenetha marahoumch f same cluster
+
+douka ahkem hedouk les points li 9aedou w dir la meme chose, khyr wahed centroid w ahsseb la distance
+
+3awed la meme chose hta gae ywelou aendhoum cluster
