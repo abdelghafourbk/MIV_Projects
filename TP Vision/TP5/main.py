@@ -56,9 +56,8 @@ for i in range(1, nbImages, 2):
 # calcule des centroid pour chaque image
 for i in range(len(all_images)):
     kp = keypoints[i]
-    x_coords = [k.pt[0] for k in kp]
-    y_coords = [k.pt[1] for k in kp]
-    centroid = (int(np.mean(x_coords)), int(np.mean(y_coords)))
+    coordinates = np.array([k.pt for k in kp])
+    centroid = np.mean(coordinates, axis=0).astype(int)
     centroids.append(centroid)
     # affichage des centroid sur les images
     cv2.circle(all_images[i], centroid, 5, (0, 0, 255), 2)
